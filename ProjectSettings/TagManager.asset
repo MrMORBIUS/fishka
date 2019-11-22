@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - fish
+  - platformCol
+  - pointOne
+  - Menedger
+  - textpoint
+  - hook
+  - bomb
+  - Shark
+  - rock
+  - fishBlade
+  - AnglerFish
+  - SpikePlatform
+  - Spike
+  - SpikeTwo
+  - SpikeBox
+  - column
+  - columnDown
+  - TwoColum
+  - point
+  - "\u0424\u0424\u0424\u0424\u0424\u0424\u0424\u0424\u0424\u0424\u0424\u0424"
+  - fishnet
+  - hookDead
+  - maxPosition
+  - minPosition
+  - endScene
+  - hookMaxPosition
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Spike : MonoBehaviour
 {
 	Rigidbody2D rb;
-	public float speed;
 	float deadTime = 1f;
 	GameObject fish;
 
@@ -19,7 +18,7 @@ public class Spike : MonoBehaviour
 	{
 		if (GManager.gameOver == false)
 		{
-			rb.velocity = new Vector2(-speed, 0);
+			rb.velocity = new Vector2(-GManager.speedObject, 0);
 		}
 		if (transform.position.x <= -14f) Destroy(gameObject, deadTime);
 		if (GManager.gameOver == true)

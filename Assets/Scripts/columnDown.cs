@@ -5,7 +5,6 @@ using UnityEngine;
 public class columnDown : MonoBehaviour
 {
 	Rigidbody2D rb;
-	public float speed;
 	float deadTime = 1f;
 	GameObject fish;
 	public float moveDown;
@@ -46,12 +45,12 @@ public class columnDown : MonoBehaviour
 
 	public void MoveColDown()
 	{
-		rb.velocity = new Vector2(-speed, -moveDown);
+		rb.velocity = new Vector2(-GManager.speedObject, -moveDown);
 	}
 
 	public void MoveColUp()
 	{
-		rb.velocity = new Vector2(-speed, moveDown);
+		rb.velocity = new Vector2(-GManager.speedObject, moveDown);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

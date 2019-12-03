@@ -5,7 +5,6 @@ using UnityEngine;
 public class MovePlatform : MonoBehaviour
 {
     Rigidbody2D rb;
-    public float speed;
 	GameObject fish;
 	GManager Gm;
 	bool check = false;
@@ -23,8 +22,8 @@ public class MovePlatform : MonoBehaviour
 		while (true)
 		{
 			yield return new WaitForSeconds(0);
-			if (GManager.gameOver == false)
-				rb.velocity = new Vector2(-speed, 0);
+			if (GManager.gameOver == false)						// Изменить иф, сделать так чтобы на то что геймОвер фолз, была проверка 1 раз
+				rb.velocity = new Vector2(-GManager.speedObject, 0);			// дальше проверялось только на тру. (Сделать Везде).
 			else if(GManager.gameOver == true)
 			{
 				rb.velocity = new Vector2(0, 0);
@@ -49,10 +48,11 @@ public class MovePlatform : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("fish"))
 		{
+			GManager.gameOver = true;
+			GameObject.FindWithTag("Spawn").GetComponent<Spawn>().StopSpawn();  //Остановка спавна после смерти.
 			collision.gameObject.GetComponent<FishController>().jumpForce = 0;
 			collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
 			collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-			GManager.gameOver = true;
 		}
 	}
 }

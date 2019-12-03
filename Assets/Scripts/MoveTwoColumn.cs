@@ -6,7 +6,6 @@ public class MoveTwoColumn : MonoBehaviour
 {
 	Rigidbody2D rb;
 	GameObject fish;
-	public float speed;
 	public float speedY;
 	float deadTime = 1f;
 	public float maxPositionY;
@@ -55,12 +54,12 @@ public class MoveTwoColumn : MonoBehaviour
 
 	void MoveDown()
 	{
-		rb.velocity = new Vector2(-speed, -speedY);
+		rb.velocity = new Vector2(-GManager.speedObject, -speedY);
 	}
 
 	void MoveUp()
 	{
-		rb.velocity = new Vector2(-speed, speedY);
+		rb.velocity = new Vector2(-GManager.speedObject, speedY);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

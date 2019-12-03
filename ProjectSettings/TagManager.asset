@@ -30,6 +30,7 @@ TagManager:
   - minPosition
   - endScene
   - hookMaxPosition
+  - Spawn
   layers:
   - Default
   - TransparentFX

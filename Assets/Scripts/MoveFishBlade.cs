@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MoveFishBlade : MonoBehaviour
 {
-	public float speed;
 	float deadTime = 1f;
 	Rigidbody2D rb;
 	GameObject fish;
@@ -19,7 +18,7 @@ public class MoveFishBlade : MonoBehaviour
 	{
 		if (GManager.gameOver == false)
 		{
-			rb.velocity = new Vector2(-speed, 0);
+			rb.velocity = new Vector2(-GManager.speedObject, 0);
 		}
 		if (GManager.gameOver == true)
 		{

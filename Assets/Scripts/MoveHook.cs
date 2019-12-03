@@ -5,7 +5,6 @@ using UnityEngine;
 public class MoveHook : MonoBehaviour
 {
 	Rigidbody2D rb;
-	public float speed;
 	public float speedY;
 	float maxPosition;				//Максимальная позиция при анимации Волнения.
 	float minPosition;              //Минимальная позиция при анимации Волнения.
@@ -30,6 +29,7 @@ public class MoveHook : MonoBehaviour
 		if (collision.gameObject.CompareTag("fish"))
 		{
 			GManager.gameOver = true;
+			GameObject.FindWithTag("Spawn").GetComponent<Spawn>().StopSpawn();
 			gripTheHook = true;
 			Gm.hookMaxPosition.SetActive(true);
 			collision.gameObject.GetComponent<FishController>().jumpForce = 0;
@@ -64,7 +64,7 @@ public class MoveHook : MonoBehaviour
 			{
 				if (finishPosition == false)
 				{
-					rb.velocity = new Vector2(-speed, speedY);
+					rb.velocity = new Vector2(-GManager.speedObject, speedY);
 					if (transform.position.y >= maxPosition)
 					{
 						finishPosition = true;
@@ -72,7 +72,7 @@ public class MoveHook : MonoBehaviour
 				}
 				else if (finishPosition == true)
 				{
-					rb.velocity = new Vector2(-speed, -speedY);
+					rb.velocity = new Vector2(-GManager.speedObject, -speedY);
 					if (transform.position.y <= minPosition)
 					{
 						finishPosition = false;

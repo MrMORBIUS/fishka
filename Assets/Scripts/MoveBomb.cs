@@ -5,7 +5,6 @@ using UnityEngine;
 public class MoveBomb : MonoBehaviour
 {
 	Rigidbody2D rb;
-	public float speed;
 	bool check = false;
 	GameObject fish;
 	GManager Gm;
@@ -20,7 +19,7 @@ public class MoveBomb : MonoBehaviour
 
 	IEnumerator _MoveBomb()
 	{
-		rb.velocity = new Vector2(-speed, 0);
+		rb.velocity = new Vector2(-GManager.speedObject, 0);
 		while (true)
 		{
 			yield return new WaitForSeconds(0);
@@ -55,6 +54,7 @@ public class MoveBomb : MonoBehaviour
 			rb.velocity = new Vector2(0, 0);
 			collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 			GManager.gameOver = true;
+			GameObject.FindWithTag("Spawn").GetComponent<Spawn>().StopSpawn();
 		}
 	}
 }

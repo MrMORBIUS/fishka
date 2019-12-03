@@ -6,7 +6,7 @@ public class FishController : MonoBehaviour
 {
      Rigidbody2D rb;
 	 public float jumpForce;			  // сила прыжка.
-     public float X;					  // скорость по оси x.
+     public float X;                      // скорость по оси x.
 
 	void Start()
     {

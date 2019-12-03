@@ -6,7 +6,6 @@ public class MoveAnglerFish : MonoBehaviour
 {
 	GameObject fish;
 	Rigidbody2D rb;
-	public float speed = 2f;
 	float randomDistanceAttack;
 	public Vector3 fixedPositionFish;
 	public float speedAttack;
@@ -45,12 +44,12 @@ public class MoveAnglerFish : MonoBehaviour
 
 	void MoveAnglerX()
 	{
-		rb.velocity = new Vector2(-speed, 0);
+		rb.velocity = new Vector2(-GManager.speedObject, 0);
 	}
 
 	void MoveAnglerDown()
 	{
-		rb.velocity = new Vector2(-speed, -speedY);
+		rb.velocity = new Vector2(-GManager.speedObject, -speedY);
 	}
 
 	IEnumerator Attack()

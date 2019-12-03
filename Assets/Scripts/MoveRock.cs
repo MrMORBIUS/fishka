@@ -4,43 +4,44 @@ using UnityEngine;
 
 public class MoveRock : MonoBehaviour
 {
-	public float speed;
 	Rigidbody2D rb;
-	float deadTime = 1f;
 	GameObject fish;
+
 
 	private void Start()
 	{
 		fish = GameObject.FindWithTag("fish");
 		rb = GetComponent<Rigidbody2D>();
+		StartMoveRock();
 	}
 
-	private void FixedUpdate()
+	void StartMoveRock()
 	{
 		if (GManager.gameOver == false)
-		{
-			rb.velocity = new Vector2(-speed, 0);
-		}
-		if (GManager.gameOver == true)
-		{
-			rb.velocity = new Vector2(0, 0);
-			fish.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-		}
-		if (transform.position.x <= -49.2f)
-		{
-			Destroy(gameObject, deadTime);
-		}
+			rb.velocity = new Vector2(-GManager.speedObject, 0);
 	}
 
+	void StopMoveRock()
+	{
+		rb.velocity = new Vector2(0, 0);
+		rb.simulated = false;
+	}
+
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		if (collision.tag == "endScene")
+			Destroy(gameObject, 20);
+	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.gameObject.CompareTag("fish"))
 		{
+			GManager.gameOver = true;
+			GameObject.FindWithTag("Spawn").GetComponent<Spawn>().StopSpawn();
+			StopMoveRock();
 			collision.gameObject.GetComponent<FishController>().X = 0;
 			collision.gameObject.GetComponent<FishController>().jumpForce = 0;
-			collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-			GManager.gameOver = true;
 		}
 	}
 }

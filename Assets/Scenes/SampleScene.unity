@@ -311,7 +311,7 @@ PrefabInstance:
     - target: {fileID: 5262546965459664486, guid: da365c8beb5f38946a5ca9ddbde51594,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.494489
+      value: 16.45
       objectReference: {fileID: 0}
     - target: {fileID: 5262546965459664486, guid: da365c8beb5f38946a5ca9ddbde51594,
         type: 3}
@@ -362,6 +362,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834616675424801794, guid: da365c8beb5f38946a5ca9ddbde51594,
+        type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834616675424801794, guid: da365c8beb5f38946a5ca9ddbde51594,
+        type: 3}
+      propertyPath: distanceAttack
+      value: 5.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834616675424801794, guid: da365c8beb5f38946a5ca9ddbde51594,
+        type: 3}
+      propertyPath: jumpSpeed
+      value: 0.08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da365c8beb5f38946a5ca9ddbde51594, type: 3}
@@ -636,7 +651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1671392167
 Transform:
   m_ObjectHideFlags: 0

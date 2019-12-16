@@ -12,25 +12,18 @@ public class MoveRock : MonoBehaviour
 	{
 		fish = GameObject.FindWithTag("fish");
 		rb = GetComponent<Rigidbody2D>();
-		StartMoveRock();
 	}
 
-	void StartMoveRock()
+	private void FixedUpdate()
 	{
 		if (GManager.gameOver == false)
 			rb.velocity = new Vector2(-GManager.speedObject, 0);
 	}
-
-	void StopMoveRock()
-	{
-		rb.velocity = new Vector2(0, 0);
-		rb.simulated = false;
-	}
-
+	
 	private void OnTriggerExit2D(Collider2D collision)
 	{
 		if (collision.tag == "endScene")
-			Destroy(gameObject, 20);
+			Destroy(gameObject, 18);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
@@ -39,9 +32,9 @@ public class MoveRock : MonoBehaviour
 		{
 			GManager.gameOver = true;
 			GameObject.FindWithTag("Spawn").GetComponent<Spawn>().StopSpawn();
-			StopMoveRock();
 			collision.gameObject.GetComponent<FishController>().X = 0;
 			collision.gameObject.GetComponent<FishController>().jumpForce = 0;
+			rb.velocity = new Vector2(0, 0);
 		}
 	}
 }

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2305895873932737256}
   - component: {fileID: 3179069094828277015}
   - component: {fileID: 3497185465141860517}
-  - component: {fileID: 982810693427802232}
   - component: {fileID: 114183720717860232}
   m_Layer: 0
   m_Name: SpikePlatform
@@ -60,6 +59,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -130,32 +130,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
---- !u!61 &982810693427802232
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862513149195728008}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.04465133, y: 0.4087968}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 12.8, y: 10.24}
-    newSize: {x: 12.8, y: 10.24}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.37040925, y: 14.817815}
-  m_EdgeRadius: 0
 --- !u!114 &114183720717860232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,4 +142,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dba7899158645b49b625032d6b11b38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.5

@@ -6,17 +6,22 @@ public class Spawn : MonoBehaviour
 {
 	GameObject fish;
 	public GameObject[] objectBase = new GameObject[15];
-	int[] objectQueue = new int[] { 0, 0, 1, 0, 2, 0, 3, 2, 4, 1, 0, 5, 4, 6, 2, 6, 9, 10, 8, 9, 10, 9, 10, 9, 10, 9, 11, 7, 12, 13, 14, 3, 15 }; //Какой объект на очереди?
-	int[] itemToSpawn = new int[] { 3, 4, 6, 1, 7, 1, 1, 10, 1, 10, 1, 10, 1, 3, 6, 3, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 3, 2, 5, 3, 9, 1, 1 }; //Сколько объектов нужно заспавнить.
-	float[] timeForSpawn = new float[] { 5, 3, };         //Время для yield return new ...
-				
+	int[] objectQueue = new int[] { 0, 0, 1, 0, 2, 0, 3, 2, 0, 4, 1, 0, 5, 4, 6, 2, 6, 9, 10, 8, 9, 10, 9, 10, 9, 10, 9, 11, 7, 12, 13, 14, 3, 15 }; //Какой объект на очереди?
+	int[] itemToSpawn = new int[] { 3, 4, 6, 1, 7, 1, 1, 10, 1, 1, 10, 1, 10, 1, 3, 6, 3, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 2, 5, 3, 9, 1, 1 }; //Сколько объектов нужно заспавнить.
+
+	float[] timeForSpawn = new float[] { 3.5f, 2, 1.5f, 1.5f, 1.5f, 1.5f, 2, 1.5f, 1.5f, 3.5f, 1.5f, 1.5f, 2, 3.5f, 4.5f, 1.5f, 4, 1.5f, 2.5f, 2, 1, 1, 1, 6, 4 /*добавить еще босса*/    }; //Время для yield return new ...
+	float[] speedObjects = new float[] { 2.5f, 3, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 2.5f, 4, 4, 4, 3, 2.5f, 3.5f, 3, 3.5f, 4, 4, 4.5f, 4.5f, 5, 5, 3 /* босс*/};  // скорость объктов.
+	
 	int j = 0;
-	int use_j = 0;														//Написать координаты для появления объектов.				Сделано.
-	int numberObjectQueue = 0;											//Переписать objectQueue and itemToSpawn.					Сделано.
-	float positionX;													//Написать массив для yield.
-	float positionY;                                                    //Написать увеличение speed для всех objectBase.
-	int numberObjectBase = 0; // для доп for.
+	int use_j = 0;                                                      
+	int timeAndSpeed = 0;
+	int use_timeAndSpeed = 0;
+	int numberObjectQueue = 0;											
+	float positionX;													
+	float positionY;                                                    
+	int numberObjectBase = 0; 
 	int checkSpikeBox = 1;
+	int valueSum = 1;           //значение для суммы с use_timeAndSpeed.
 
 	internal Coroutine SpawnCoroutine = null;
 
@@ -42,42 +47,53 @@ public class Spawn : MonoBehaviour
 			{
 				for (j = use_j; j < use_j + 1 ; j++)
 				{
-					for (int spawn = 0; spawn < itemToSpawn[j]; spawn++)
+					valueSum = 1;
+					for (timeAndSpeed = use_timeAndSpeed; timeAndSpeed < use_timeAndSpeed + valueSum; )
 					{
-						positionY = i;
-						RandomRangePosition(ref positionX, ref positionY);
-						if (i == 11)
+						if(i == 11) { timeAndSpeed++; }								
+						GManager.speedObject = speedObjects[timeAndSpeed];		
+						for (int spawn = 0; spawn < itemToSpawn[j]; spawn++)
 						{
-							Instantiate(objectBase[i], new Vector3(positionX, positionY, transform.position.z), Quaternion.identity);
-							yield return new WaitForSeconds(2);
 							positionY = i;
 							RandomRangePosition(ref positionX, ref positionY);
-							for (int spawn2 = 0; spawn2 < 1; spawn2++)
+							if(i != 7 && i != 11 && i != 13)
 							{
 								Instantiate(objectBase[i], new Vector3(positionX, positionY, transform.position.z), Quaternion.identity);
-								yield return new WaitForSeconds(2);
+								yield return new WaitForSeconds(timeForSpawn[timeAndSpeed]);
+								if (i == 4) { yield return new WaitForSeconds(18); }
 							}
-						}
-						else if (i == 7 || i == 13)
-						{
-							if (i == 7) { numberObjectBase = i + 1; }
-							else { numberObjectBase = i - 1; }
-							Instantiate(objectBase[i], new Vector3(positionX, positionY, transform.position.z), Quaternion.identity);
-							yield return new WaitForSeconds(2);
-							positionY = numberObjectBase;
-							RandomRangePosition(ref positionX, ref positionY);
-							for (int spawn3 = 0; spawn3 < 1; spawn3++)
+							else if (i == 11)
 							{
-								Instantiate(objectBase[numberObjectBase], new Vector3(positionX, positionY, transform.position.z), Quaternion.identity);
-								yield return new WaitForSeconds(2);
+								Instantiate(objectBase[i], new Vector3(positionX, positionY, transform.position.z), Quaternion.identity);
+								yield return new WaitForSeconds(timeForSpawn[timeAndSpeed]);
+								positionY = i;
+								RandomRangePosition(ref positionX, ref positionY);
+								for (int spawn2 = 0; spawn2 < 1; spawn2++)
+								{
+									Instantiate(objectBase[i], new Vector3(positionX, positionY, transform.position.z), Quaternion.identity);
+									yield return new WaitForSeconds(timeForSpawn[timeAndSpeed]);
+								}
+							}
+							else if (i == 7 || i == 13)
+							{
+								if (i == 7) { numberObjectBase = i + 1; }
+								else { numberObjectBase = i - 1; }
+								Instantiate(objectBase[i], new Vector3(positionX, positionY, transform.position.z), Quaternion.identity);
+								yield return new WaitForSeconds(timeForSpawn[timeAndSpeed]);
+								positionY = numberObjectBase;
+								RandomRangePosition(ref positionX, ref positionY);
+								for (int spawn3 = 0; spawn3 < 1; spawn3++)
+								{
+									Instantiate(objectBase[numberObjectBase], new Vector3(positionX, positionY, transform.position.z), Quaternion.identity);
+									yield return new WaitForSeconds(timeForSpawn[timeAndSpeed]);
+								}
 							}
 						}
-						else
-						{
-							Instantiate(objectBase[i], new Vector3(positionX, positionY, transform.position.z), Quaternion.identity);
-							yield return new WaitForSeconds(2);
-						}
+						if (i < 8 || i > 10)
+						{ timeAndSpeed++; }
+						else { valueSum = 0; }
 					}
+					use_timeAndSpeed = timeAndSpeed;
 				}
 				use_j = j;
 				numberObjectQueue++;
@@ -164,8 +180,8 @@ public class Spawn : MonoBehaviour
 				positionX = 11;
 				return positionY;
 			case 14:
-				positionY = 0;
-				positionX = 11;
+				positionY = -4.2f;
+				positionX = 13;
 				return positionY;
 			case 15:
 				break;

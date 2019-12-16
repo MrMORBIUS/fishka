@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4393827405460887418}
   - component: {fileID: 3523047280711733381}
   - component: {fileID: 3202707002159756599}
-  - component: {fileID: 1250197171914661354}
-  - component: {fileID: 2121085298788454426}
+  - component: {fileID: 1801321308}
+  - component: {fileID: 2696103573465932094}
   m_Layer: 0
   m_Name: SpikePlatform in SpikeDown
   m_TagString: SpikePlatform
@@ -132,7 +132,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
---- !u!61 &1250197171914661354
+--- !u!61 &1801321308
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,10 +142,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.04465133, y: 0.4087968}
+  m_Offset: {x: 0.17711526, y: -7.6979284}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -156,9 +156,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.37040925, y: 14.817815}
+  m_Size: {x: 2.5271087, y: 1.2134724}
   m_EdgeRadius: 0
---- !u!114 &2121085298788454426
+--- !u!114 &2696103573465932094
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,7 +170,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dba7899158645b49b625032d6b11b38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.5
+--- !u!255 &801589832
+FixedJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3416400759972680246}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 3202707002159756599}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: -0.5919261, y: -7.986856}
+  m_DampingRatio: 0
+  m_Frequency: 0
 --- !u!1001 &7679476566447956130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -253,8 +270,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0769553
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1359075856, guid: 584eba4eab71a884493652e0afeb4003, type: 3}
+    - {fileID: 8468389738819734767, guid: 584eba4eab71a884493652e0afeb4003, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 584eba4eab71a884493652e0afeb4003, type: 3}
+--- !u!1 &3416400759972680246 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5042770838099260052, guid: 584eba4eab71a884493652e0afeb4003,
+    type: 3}
+  m_PrefabInstance: {fileID: 7679476566447956130}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &250681229385369973 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7631457321143413207, guid: 584eba4eab71a884493652e0afeb4003,

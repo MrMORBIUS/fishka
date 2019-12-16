@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 2169337430919113656}
   - component: {fileID: 5559454715394482307}
   - component: {fileID: 8786262991191547533}
-  - component: {fileID: 8738639472014423199}
-  - component: {fileID: 7805600738034892274}
+  - component: {fileID: 438394373}
   m_Layer: 0
   m_Name: SpikeBox
   m_TagString: SpikeBox
@@ -60,6 +59,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -130,33 +130,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.4448917, y: 3.4011111}
   m_EdgeRadius: 0
---- !u!61 &8738639472014423199
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3879245693906362075}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.30866838, y: 0.7480035}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 12.8, y: 10.24}
-    newSize: {x: 12.8, y: 10.24}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.21572173, y: 9.42788}
-  m_EdgeRadius: 0
---- !u!114 &7805600738034892274
+--- !u!114 &438394373
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,7 +139,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3879245693906362075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4476d41a307f2e94db1542286507404e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3dba7899158645b49b625032d6b11b38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.5

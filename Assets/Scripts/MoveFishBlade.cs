@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class MoveFishBlade : MonoBehaviour
 {
-	float deadTime = 1f;
 	Rigidbody2D rb;
 	GameObject fish;
+	public float speedJerk;
+	Vector3 positionJerk;
+	bool near;
 
 	private void Start()
 	{
@@ -16,29 +18,35 @@ public class MoveFishBlade : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (GManager.gameOver == false)
+		rb.velocity = new Vector2(-GManager.speedObject, 0);
+		if (near)
 		{
-			rb.velocity = new Vector2(-GManager.speedObject, 0);
+			transform.position = Vector3.MoveTowards(transform.position, positionJerk, speedJerk);
+			if(transform.position.x <= positionJerk.x) { near = false; }
 		}
-		if (GManager.gameOver == true)
-		{
-			rb.velocity = new Vector2(0, 0);
-			fish.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-		}
-		if (transform.position.x <= -15f)
-		{
-			Destroy(gameObject, deadTime);
-		}
+	}
+
+	void OutRunAnglerFish()
+	{
+		transform.position = Vector3.MoveTowards(transform.position, positionJerk, speedJerk);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.gameObject.CompareTag("fish"))
 		{
-			collision.gameObject.GetComponent<FishController>().X = 0;
-			collision.gameObject.GetComponent<FishController>().jumpForce = 0;
-			collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-			GManager.gameOver = true;
+			positionJerk = new Vector3(transform.position.x - 3.5f, transform.position.y, transform.position.z);
+			if (transform.position.y > fish.transform.position.y)
+				fish.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -1);
+			else
+				fish.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 3);
+			near = true;
 		}
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.tag == "endScene")
+			Destroy(gameObject);
 	}
 }

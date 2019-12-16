@@ -31,6 +31,8 @@ TagManager:
   - endScene
   - hookMaxPosition
   - Spawn
+  - Blade
+  - mouth
   layers:
   - Default
   - TransparentFX

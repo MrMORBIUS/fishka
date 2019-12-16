@@ -1,90 +1,91 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class MoveAnglerFish : MonoBehaviour
 {
-	GameObject fish;
-	Rigidbody2D rb;
-	float randomDistanceAttack;
-	public Vector3 fixedPositionFish;
-	public float speedAttack;
-	public float speedY;
-	bool check = false;
-	float deadTime = 1f;
-
+    public float jumpSpeed;
+    Transform fish;
+	GameObject fishOne;
+    Rigidbody2D rb;
+    public float distanceAttack;
+    bool attack;
+    bool backAttack;
+    Vector3 saveTarget;
+    Vector3 finishPoint;
+	float rotationValue = 8.5f;
+	GManager Gm;
 
 
 	private void Start()
-	{
-		randomDistanceAttack = Random.Range(4.08f, 8.8f);
-		fish = GameObject.FindWithTag("fish");
-		rb = GetComponent<Rigidbody2D>();
-		MoveAnglerX();
-
+    {
+        rb = GetComponent<Rigidbody2D>();
+		fishOne = GameObject.FindWithTag("fish");
+		fish = GameObject.FindWithTag("fish").GetComponent<Transform>();
+		Gm = GameObject.FindWithTag("Menedger").GetComponent<GManager>();
 	}
 
 	private void FixedUpdate()
 	{
-		if (check == false)
+		if (attack) { Attack(); }
+		else { Move(); } 
+	}
+
+    private void Attack()
+    {
+        if (backAttack == false)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, saveTarget, jumpSpeed);
+			if(transform.position.y - 0.5f > saveTarget.y) { rotationValue = -8.5f; RotationAnglerFish(ref rotationValue); }
+			else if(transform.position.y + 0.5f < saveTarget.y) { rotationValue = 8.5f; RotationAnglerFish(ref rotationValue); }
+			if (transform.position == saveTarget) { backAttack = true; GManager.point++; Gm.TextView(); }
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, finishPoint, jumpSpeed);
+			if (transform.position.y - 0.5f > finishPoint.y) { rotationValue = -8.5f; RotationAnglerFish(ref rotationValue); }
+			else if (transform.position.y + 0.5f < finishPoint.y) { rotationValue = 8.5f; RotationAnglerFish(ref rotationValue); }
+			if (transform.position == finishPoint)
+			{
+				attack = false;
+				transform.rotation = Quaternion.identity;
+			}
+        }
+    }
+
+    void Move()
+    {
+        rb.velocity = new Vector2(-GManager.speedObject, 0);
+		if (transform.position.x >= saveTarget.x + 1.5f || transform.position.x < saveTarget.x) { attack = false; }
+		else if (Vector2.Distance(transform.position, fish.position) < distanceAttack && backAttack == false)
+        {
+            attack = true;
+            saveTarget = fish.position;
+            finishPoint = new Vector3(transform.position.x - ((transform.position.x - saveTarget.x) * 2), transform.position.y,transform.position.z);
+            rb.velocity = new Vector2(0, 0);
+        }
+    }
+
+	void RotationAnglerFish(ref float rotationValue)
+	{
+		Quaternion anglerFish = Quaternion.Euler(0, 0, Mathf.Clamp(transform.position.y * rotationValue, -25, 45));
+		transform.rotation = Quaternion.Slerp(transform.rotation, anglerFish, Time.deltaTime * 5f);
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.CompareTag("fish"))
 		{
-			MoveAnglerX();
-		}
-		if (Vector3.Distance(fish.transform.position, transform.position) <= randomDistanceAttack && check == false)
-		{
-			print("Hi");
-			check = true;
-			//StartCoroutine(Attack());
-		}
-		if (transform.position.x <= -11f)
-		{
-			Destroy(gameObject, deadTime);
+			//GManager.gameOver = true;
+			//GameObject.FindWithTag("Spawn").GetComponent<Spawn>().StopSpawn();
 		}
 	}
 
-	void MoveAnglerX()
+	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		rb.velocity = new Vector2(-GManager.speedObject, 0);
-	}
-
-	void MoveAnglerDown()
-	{
-		rb.velocity = new Vector2(-GManager.speedObject, -speedY);
-	}
-
-	IEnumerator Attack()
-	{
-		fixedPositionFish = fish.transform.position;
-		if(fixedPositionFish.y > transform.position.y)
-		{
-			print("Я в первом ифе");
-			while (transform.position.x > fixedPositionFish.x && transform.position.y < fixedPositionFish.y)
-			{
-				print("Я в первом вайле");
-				Vector2.MoveTowards(transform.position, fixedPositionFish, -speedAttack);
-			}
-		}
-		else if (fixedPositionFish.y < transform.position.y)
-		{
-			print("Я во втором ифе");
-			while (transform.position.x > fixedPositionFish.x && transform.position.y > fixedPositionFish.y)
-			{
-				print("Я во втором вайле");
-				Vector2.MoveTowards(transform.position, fixedPositionFish, -speedAttack);
-			}
-		}
-		else if (fixedPositionFish.y == transform.position.y)
-		{
-			print("Я в третьем ифе");
-			while (transform.position.x > fixedPositionFish.x && transform.position.y == fixedPositionFish.y)
-			{
-				print("Я в третьем вайле");
-				Vector2.MoveTowards(transform.position, fixedPositionFish, -speedAttack);
-			}
-		}
-		MoveAnglerX();
-		yield return new WaitForSeconds(1f);
-		MoveAnglerDown();
-		yield break;						//Устранить баг!
+		if (collision.tag == "endScene")
+			Destroy(gameObject);
 	}
 }

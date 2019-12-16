@@ -5,7 +5,6 @@ using UnityEngine;
 public class columnDown : MonoBehaviour
 {
 	Rigidbody2D rb;
-	float deadTime = 1f;
 	GameObject fish;
 	public float moveDown;
 	public float randPositionY;
@@ -15,7 +14,7 @@ public class columnDown : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 		fish = GameObject.FindWithTag("fish");
-		randPositionY = Random.Range(4.8f, -0.6f);
+		randPositionY = Random.Range(4f, 3f);
 	}
 
 	private void FixedUpdate()
@@ -39,9 +38,7 @@ public class columnDown : MonoBehaviour
 		{
 			rb.velocity = new Vector2(0, 0);
 		}
-		if (transform.position.x <= -11f) Destroy(gameObject, deadTime);
 	}
-
 
 	public void MoveColDown()
 	{
@@ -57,10 +54,15 @@ public class columnDown : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("fish"))
 		{
-			collision.gameObject.GetComponent<FishController>().X = 0;
-			collision.gameObject.GetComponent<FishController>().jumpForce = 0;
-			collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
 			GManager.gameOver = true;
+			//GameObject.FindWithTag("Spawn").GetComponent<Spawn>().StopSpawn();
+			collision.gameObject.GetComponent<Rigidbody2D>().simulated = false;
+			collision.gameObject.GetComponent<FishController>().jumpForce = 0;
 		}
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.tag == "endScene") { Destroy(gameObject); }
 	}
 }

@@ -7,7 +7,6 @@ public class MoveTwoColumn : MonoBehaviour
 	Rigidbody2D rb;
 	GameObject fish;
 	public float speedY;
-	float deadTime = 1f;
 	public float maxPositionY;
 	public float minPositionY;
 	bool checkPositionY = false;		//проверка : где находиться объект на максимальной или минимальной позиции
@@ -17,8 +16,8 @@ public class MoveTwoColumn : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 		fish = GameObject.FindWithTag("fish");
-		maxPositionY = Random.Range(1.36f, 2.4f);
-		minPositionY = Random.Range(-1, 0.5f);
+		maxPositionY = Random.Range(-2.21f, -3.25f);
+		minPositionY = Random.Range(-5.6f, -4.7f);
 	}
 
 	private void FixedUpdate()
@@ -42,13 +41,9 @@ public class MoveTwoColumn : MonoBehaviour
 				}
 			}	
 		}
-		if (GManager.gameOver == true)
+		else if (GManager.gameOver == true)
 		{
 			rb.velocity = new Vector2(0, 0);
-		}
-		if (transform.position.x <= -11f)
-		{
-			Destroy(gameObject, deadTime);
 		}
 	}
 
@@ -66,11 +61,16 @@ public class MoveTwoColumn : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("fish"))
 		{
-			collision.gameObject.GetComponent<FishController>().X = 0;
-			collision.gameObject.GetComponent<FishController>().jumpForce = 0;
-			collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
 			GManager.gameOver = true;
+			//GameObject.FindWithTag("Spawn").GetComponent<Spawn>().StopSpawn();
+			collision.gameObject.GetComponent<Rigidbody2D>().simulated = false;
+			collision.gameObject.GetComponent<FishController>().jumpForce = 0;
 		}
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.tag == "endScene") { Destroy(gameObject); }
 	}
 
 }
